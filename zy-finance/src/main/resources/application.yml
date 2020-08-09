@@ -1,0 +1,24 @@
+#thymeleaf配置
+spring:
+  groovy:
+    template:
+      cache: false
+
+
+
+
+
+
+
+
+
+#  spring.thymeleaf.cache=false
+#  spring.thymeleaf.enable-spring-el-compiler=true
+#  spring.thymeleaf.encoding=UTF-8
+#  spring.thymeleaf.servlet.content-type=text/html; charset=utf-8
+#  spring.thymeleaf.check-template-location=true
+#  spring.thymeleaf.check-template=true
+#  spring.thymeleaf.suffix=.html
+#  spring.thymeleaf.prefix=classpath:/templates/
+#  spring.resources.chain.strategy.content.enabled=true
+#  spring.resources.chain.strategy.content.paths=/**
