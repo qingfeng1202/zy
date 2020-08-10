@@ -1,0 +1,106 @@
+<nz-breadcrumb nz-page-header-breadcrumb nzSeparator=">">
+        <nz-breadcrumb-item>客户</nz-breadcrumb-item>
+        <nz-breadcrumb-item>公海客户</nz-breadcrumb-item>
+    </nz-breadcrumb>
+    
+    <div nz-row class="search">
+        <div nz-col nzSpan="4">
+            企业名称&nbsp;&nbsp; <input nz-input placeholder='请输入企业名称' [(ngModel)]="condition.name" (blur)="onSearch()" />
+        </div>
+        <div nz-col nzSpan="4">
+            客户负责人&nbsp;&nbsp;
+            <nz-select [(ngModel)]="condition.chargeUser" (ngModelChange)="onSearch()">
+                <nz-option nzValue="" nzLabel="所有"></nz-option>
+                <nz-option nzValue="jack" nzLabel="在职"></nz-option>
+                <nz-option nzValue="lucy" nzLabel="离职"></nz-option>
+                <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+            </nz-select>
+        </div>
+        <div nz-col nzSpan="4">
+            客户状态&nbsp;&nbsp;
+            <nz-select [(ngModel)]="condition.status" (ngModelChange)="onSearch()">
+                <nz-option nzValue="" nzLabel="所有"></nz-option>
+                <nz-option nzValue="jack" nzLabel="在职"></nz-option>
+                <nz-option nzValue="lucy" nzLabel="离职"></nz-option>
+                <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+            </nz-select>
+        </div>
+        <div nz-col nzSpan="6">
+            更新时间&nbsp;&nbsp;
+            <nz-range-picker [(ngModel)]="condition.updateTimeRange" (ngModelChange)="onSearch()"></nz-range-picker>
+        </div>
+        <div nz-col nzSpan="6">
+            创建时间&nbsp;&nbsp;
+            <nz-range-picker [(ngModel)]="condition.createTimeRange" (ngModelChange)="onSearch()"></nz-range-picker>
+        </div>
+    </div>
+    
+    <div>
+        <nz-space>
+            <!-- <nz-space-item>
+                <button nz-button nzType="primary" nzSize='large' (click)="open_edit('添加客户', 'add')">
+                    <i nz-icon nzType="plus-circle" nzTheme="outline"></i>添加
+                </button>
+            </nz-space-item> -->
+            <!-- <nz-space-item>
+                <button nzType="primary" nzSize='large' nzDanger nz-popconfirm nzPopconfirmPlacement="bottom"
+                    nzPopconfirmTitle="确定是否批量删除这些数据?" (nzOnConfirm)="delete_arr()" [nzPopconfirmShowArrow]="false"
+                    nz-button>
+                    <i nz-icon nzType="delete" nzTheme="outline"></i>批量删除
+                </button>
+            </nz-space-item> -->
+        </nz-space>
+    </div>
+    
+    <nz-table #basicTable [nzData]="data.list" nzFrontPagination=false>
+        <thead>
+            <tr>
+                <th [(nzChecked)]="tool.allChecked" [nzIndeterminate]="false" (nzCheckedChange)="tool.onAllChecked($event)">
+                </th>
+                <th>序号</th>
+                <th>企业名称</th>
+                <th>前负责人</th>
+                <th>客户行业</th>
+                <th>跟进次数</th>
+                <th>最后跟进时间</th>
+                <th>创建时间</th>
+                <th>联系方式</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of basicTable.data; let i = index">
+                <td [(nzChecked)]="tool.checkArr[i]" (nzCheckedChange)="tool.onChecked($event)"></td>
+                <td>{{ i + 1 }}</td>
+                <td>{{ data.name }}</td>
+                <td>{{ data.chargeUserName }}</td>
+                <td>{{ data.sex }}</td>
+                <td>{{ data.birthday }}</td>
+                <td>{{ data.updateTime }}</td>
+                <td>{{ data.createTime }}</td>
+                <td>{{ data.phone }}</td>
+                <!-- <td>
+                    <nz-switch [ngModel]="data.status==1" nzCheckedChildren="在职" nzUnCheckedChildren="离职"
+                            (ngModelChange)='update_status(data.id, $event)'></nz-switch>
+                </td> -->
+                <td>
+                    <nz-space>
+                        <!-- <nz-space-item>
+                            <button class="button-update" nz-button nzType="primary" nzSize='small'
+                                (click)="open_edit('编辑属性组', 'update', data.id)">编辑</button>
+                        </nz-space-item> -->
+                        <!-- <nz-space-item>
+                            <button nzType="primary" nzSize='small' nzDanger nz-popconfirm nzPopconfirmPlacement="bottom"
+                                nzPopconfirmTitle="确定是否删除{{data.name}}?" (nzOnConfirm)="delete(data.id)"
+                                [nzPopconfirmShowArrow]="false" nz-button>删除
+                            </button>
+                        </nz-space-item> -->
+                    </nz-space>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+    
+    <nz-pagination [nzPageIndex]="data.pageNum" [nzTotal]="data.total" nzShowQuickJumper [nzShowTotal]="totalTemplate"
+        (nzPageIndexChange)="pageIndexChange($event)"></nz-pagination>
+    <ng-template #totalTemplate let-total> 共 {{ total }} 条数据 </ng-template>

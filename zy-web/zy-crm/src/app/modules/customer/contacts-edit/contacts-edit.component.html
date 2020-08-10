@@ -1,0 +1,54 @@
+<nz-modal [(nzVisible)]="modal.isVisible" [nzTitle]="modal.title" [nzOkLoading]="modal.isOkLoading" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    (nzAfterClose)="afterClose()" nzWidth="600">
+    <nz-space nzDirection="vertical" class="content">
+        
+        <nz-space-item>
+            姓名<span style="color: red;">*</span>
+        </nz-space-item>
+        <nz-alert nzType="error" [nzMessage]="error.name.errMsg" nzShowIcon *ngIf="error.name.isError"></nz-alert>
+        <nz-space-item>
+            <input nz-input placeholder='请输入联系人姓名' [(ngModel)]="data.name" (blur)="check_name()"/>
+        </nz-space-item>
+        
+        <nz-space-item>
+            电话<span style="color: red;">*</span>
+        </nz-space-item>
+        <nz-alert nzType="error" [nzMessage]="error.phone.errMsg" nzShowIcon  *ngIf="error.phone.isError"></nz-alert>
+        <nz-space-item>
+            <input nz-input placeholder='请输入联系人电话' [(ngModel)]="data.phone"  (blur)="check_phone()"/>
+        </nz-space-item>
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    部门
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    职位
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    <input nz-input placeholder='请输入部门' [(ngModel)]="data.department" />
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    <input nz-input placeholder='请输入职位' [(ngModel)]="data.position" />
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            联系地址
+        </nz-space-item>
+        <nz-space-item>
+            <input nz-input placeholder='请输入联系地址' [(ngModel)]="data.address" />
+        </nz-space-item>
+        <nz-space-item>
+            备注
+        </nz-space-item>
+        <nz-space-item>
+            <textarea rows="4" nz-input [(ngModel)]="data.remark"></textarea>
+        </nz-space-item>
+
+    </nz-space>
+</nz-modal>

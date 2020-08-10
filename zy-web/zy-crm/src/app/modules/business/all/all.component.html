@@ -1,0 +1,84 @@
+<nz-breadcrumb nz-page-header-breadcrumb nzSeparator=">">
+    <nz-breadcrumb-item>商机</nz-breadcrumb-item>
+    <nz-breadcrumb-item>全部商机</nz-breadcrumb-item>
+</nz-breadcrumb>
+
+<div nz-row class="search">
+    <div nz-col nzSpan="6">
+        企业名称&nbsp;&nbsp; <input nz-input placeholder='请输入企业名称' [(ngModel)]="condition.customerName" (blur)="onSearch()" />
+    </div>
+    <div nz-col nzSpan="6">
+        商机级别&nbsp;&nbsp; <input nz-input placeholder='请输入商机级别' [(ngModel)]="condition.name" (blur)="onSearch()" />
+    </div>
+    <div nz-col nzSpan="6">
+        商机阶段&nbsp;&nbsp; <input nz-input placeholder='请输入商机阶段' [(ngModel)]="condition.phone" (blur)="onSearch()" />
+    </div>
+</div>
+
+<div>
+    <nz-space>
+        <nz-space-item>
+            <button nz-button nzType="primary" nzSize='large' (click)="edit.open('添加联系人', 'add')">
+                <i nz-icon nzType="plus-circle" nzTheme="outline"></i>添加
+            </button>
+        </nz-space-item>
+        <nz-space-item>
+            <button nzType="primary" nzSize='large' nzDanger nz-popconfirm nzPopconfirmPlacement="bottom"
+                nzPopconfirmTitle="确定是否批量删除这些数据?" (nzOnConfirm)="delete_arr()" [nzPopconfirmShowArrow]="false"
+                nz-button>
+                <i nz-icon nzType="delete" nzTheme="outline"></i>批量删除
+            </button>
+        </nz-space-item>
+    </nz-space>
+</div>
+
+<nz-table #basicTable [nzData]="data.list" nzFrontPagination=false>
+    <thead>
+        <tr>
+            <th [(nzChecked)]="tool.allChecked" [nzIndeterminate]="false" (nzCheckedChange)="tool.onAllChecked($event)">
+            </th>
+            <th>序号</th>
+            <th>企业名称</th>
+            <th>商机来源</th>
+            <th>商机级别</th>
+            <th>商机阶段</th>
+            <th>预计金额</th>
+            <th>预计成交时间</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of basicTable.data; let i = index">
+            <td [(nzChecked)]="tool.checkArr[i]" (nzCheckedChange)="tool.onChecked($event)"></td>
+            <td>{{ i + 1 }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.department }}</td>
+            <td>{{ data.position }}</td>
+            <td>{{ data.updateTime }}</td>
+            <td>{{ data.department }}</td>
+            <td>{{ data.phone }}</td>
+            <td>
+                <nz-space>
+                    <nz-space-item>
+                        <button class="button-update" nz-button nzType="primary" nzSize='small'
+                            (click)="edit.open('编辑联系人', 'update', data.id)">编辑</button>
+                    </nz-space-item>
+                    <nz-space-item>
+                        <button nzType="primary" nzSize='small' nzDanger nz-popconfirm nzPopconfirmPlacement="bottom"
+                            nzPopconfirmTitle="确定是否删除{{data.name}}?" (nzOnConfirm)="delete(data.id)"
+                            [nzPopconfirmShowArrow]="false" nz-button>删除
+                        </button>
+                    </nz-space-item>
+                </nz-space>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>
+
+<nz-pagination [nzPageIndex]="data.pageNum" [nzTotal]="data.total" nzShowQuickJumper [nzShowTotal]="totalTemplate"
+    (nzPageIndexChange)="pageIndexChange($event)"></nz-pagination>
+<ng-template #totalTemplate let-total> 共 {{ total }} 条数据 </ng-template>
+
+<app-business-edit #edit></app-business-edit>

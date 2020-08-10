@@ -1,0 +1,108 @@
+<nz-modal [(nzVisible)]="modal.isVisible" [nzTitle]="modal.title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    (afterClose)="afterClose()" nzWidth="800">
+    <nz-space nzDirection="vertical" class="content">
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    客户名称<span style="color: red;">*</span>
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    电话
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    <input nz-input placeholder='请输入客户名称' [(ngModel)]="data.name" />
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    <input nz-input placeholder='请输入电话' [(ngModel)]="data.name" />
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    传真
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    网址
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    <input nz-input placeholder='请输入传真' [(ngModel)]="data.name" />
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    <input nz-input placeholder='请输入网址' [(ngModel)]="data.name" />
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            地址
+        </nz-space-item>
+        <nz-space-item>
+            <input nz-input placeholder='请输入地址' [(ngModel)]="data.name" />
+        </nz-space-item>
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    客户来源
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    客户级别
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            <div nz-row>
+                <div nz-col nzSpan="11">
+                    <nz-select [ngModel]="data.customerSourceId">
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of customer_source">
+                        </nz-option>
+                    </nz-select>
+                </div>
+                <div nz-col nzSpan="11" nzOffset="2">
+                    <nz-select [ngModel]="data.customerLevelId">
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.name" *ngFor="let item of customer_level">
+                        </nz-option>
+                    </nz-select>
+                </div>
+            </div>
+        </nz-space-item>
+        <nz-space-item>
+            客户联系人
+        </nz-space-item>
+        <nz-space-item>
+            <nz-space>
+                <nz-space-item *ngFor="let item of contacts">
+                    <nz-badge [nzCount]="iconTemplate">
+                        <button nz-button nzType="dashed">{{item.name}}</button>
+                    </nz-badge>
+                    <!-- 确定是否要删除 -->
+                    <ng-template #iconTemplate>
+                        <a nz-popconfirm [nzPopconfirmTitle]="'确定是否要删除' + item.name" nzPopconfirmPlacement="bottom"
+                            (nzOnConfirm)="delete_contacts(item.id)" nzPopconfirmPlacement="topLeft"
+                            [nzPopconfirmShowArrow]="false">
+                            <i nz-icon nzType="close-circle" class="ant-scroll-number-custom-component"
+                                style="color: #f5222d"></i>
+                        </a>
+                    </ng-template>
+                </nz-space-item>
+
+                <nz-space-item>
+                    <button nz-button nzType="dashed">+添加联系人</button>
+                </nz-space-item>
+            </nz-space>
+        </nz-space-item>
+        <nz-space-item>
+            备注
+        </nz-space-item>
+        <nz-space-item>
+            <textarea rows="4" nz-input [(ngModel)]="data.name"></textarea>
+        </nz-space-item>
+    </nz-space>
+</nz-modal>
